@@ -1,0 +1,126 @@
+/* General Style*/
+html {
+    font-family: 'helvetica';
+    font-size: 16px;
+    background-color: #FFF7E6;
+}
+
+#heading {
+    background:#0099E6;
+    height: 75px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    line-height: 75px;
+    margin: 0;
+}
+
+section {
+    display: flex;
+    flex-flow: row wrap;
+}
+    
+.bio, .projects {
+    flex: 1;
+    margin: 57px 15px;
+}
+    
+.links {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bio {
+    width:500px;
+    height:300px;
+    font-size: 20px;
+    position: relative;
+}
+
+
+/* vertical divider line */
+.bio::after { 
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -14px; /* adjust the position of the divider */
+    height: 95%;
+    width: 3.3px;
+    border-radius:2.3px;
+    background-color: black;
+}
+  
+.projects {
+    height: 200px;
+}
+  
+.links {
+    display: flex;
+    justify-content: center;
+}
+
+.links a {
+    margin-right: 18px; /* add margin to right of each link */
+}
+  
+.links a:last-child {
+    margin-right: 0; /* remove margin from last link */
+}
+
+
+/* make link images turn gray when hovered over */
+a img {
+    filter: grayscale(0%);
+    transition: filter 0.3s ease-in-out; /* set transition speed for link hover */
+    border-radius:15px;
+}
+  
+a:hover img {
+    filter: grayscale(100%); /* set filter for link hover */
+}
+
+.projects a {
+    --s: 1.5px;   /* the thickness of the line */
+    --c: #2c4bff; /* the color */
+    
+    color: #0000;
+    padding-bottom: var(--s);
+    background: 
+      linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+      linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+    -webkit-background-clip: text,padding-box;
+            background-clip: text,padding-box;
+    transition: 0.5s;
+}
+.projects a:hover {--_p: 100%}
+
+/* animation for hand emoji */
+.bio span {
+    display: inline-block;
+    font-size: 27px;
+    animation-name: wave;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(10deg);
+    }
+    50% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
