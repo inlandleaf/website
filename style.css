@@ -82,6 +82,8 @@ a:hover img {
     filter: grayscale(100%); /* set filter for link hover */
 }
 
+
+/* underline text effect for links */
 .projects a {
     --s: 1.5px;   /* the thickness of the line */
     --c: #2c4bff; /* the color */

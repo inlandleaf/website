@@ -48,26 +48,73 @@
 
     <script>
 
-        let randomNumber = Math.floor(Math.random() * 100) + 1;
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+      let guesses = document.querySelector('.guesses');
+      let lastResult = document.querySelector('.lastResult');
+      let lowOrHi = document.querySelector('.lowOrHi');
+      let guessSubmit = document.querySelector('.guessSubmit');
+      let guessField = document.querySelector('.guessField');
+      let guessCount = 1; // initialize guess count to 1
+      let resetButton;
 
-        let guesses = document.querySelector('.guesses');
-        let lastResult = document.querySelector('.lastResult');
-        let lowOrHi = document.querySelector('.lowOrHi');
-        let guessSubmit = document.querySelector('.guessSubmit');
-        let guessField = document.querySelector('.guessField');
+      function checkGuess() {
+          let userGuess = Number(guessField.value); // "50" -> 50
 
-        let guessCount = 1;
-        let resetButton;
-
-        function checkGuess() {
-            let userGuess = Number(guessField.value);
-
-            If (guessCount === 1) {
-                guesses.textContent = 'Previous guesses: ';
+          if (guessCount === 1) { // if it is the first guess
+              guesses.textContent = 'Previous guesses: ';
+          }
+          guesses.textContent += userGuess + ' '; // add whitespace before next guess
+      
+      
+          if (userGUess === randomNumber) {
+            lastResult.textContent = 'Congratulations! You got it right!';
+            lastResult.style.backgroundColor = 'green';
+            lowOrHi.textContent = '';
+            setGameOver();
+          } else if (guessCount === 10) {
+            lastResult.textContent = '!!!GAME OVER!!!'; // tell user they lost
+            lastResult.style.backgroundColor = 'red'; // set background color to red
+            lowOrHi.textContent = '';
+            setGameOver();
+          } else {
+            lastResult.textContent = 'Wrong!'; // tell user they are wrong
+            lastResult.style.backgroundColor = 'red'; // change CSS to red
+            if(userGuess < randomNumber) { // if guess too low
+              lowOrHi.textContent = 'Last guess was too low!'; // print message to user
+            } else if (userGuess > randomNumber) { // if guess too high
+              lowOrHi.textContent = 'Last guess was too high!'; // print messsage to user
             }
+          }
+          guessCount++; // increment guess count
+          guessField.value = ''; // clears text in textbox so user does not have to delete it
+          guessField.focus(); // selects (shifts focus) to textbox so user can start typing in it again
+      }
 
-            guesses.textContent += userGuess + ' ';
+      guessSubmit.addEventListener('click', checkGuess); //
+
+      function setGameOver() {
+        guessField.disabled = true; // make so user cannot type in textbox
+        guessSubmit.disabled = true; // user cannot click submit button
+        resetButton = document.createElement('button'); // add reset button to our HTML
+        resetButton.textContent = 'Start new game'; // add text to the button we created
+        document.body.appendChild(resetButton); // JavaScript convention for basic functionality
+        resetButton.addEventListener('click', resetGame);
+      }
+
+      function resetGame() {
+        guessCount = 1;
+        const resetParas = document.querySelectorAll('.resultParas p');
+        for (const resetPara of resetParas) {
+          resetPara.textContent = '';
         }
+        resetButton.parentNode.removeChild(resetButton); // Removes HTML element
+        guessField.disabled = false; // re-enables guess field
+        guessSubmit.disabled = false; // re-enables submit button
+        guessField.value = ''; // erase any text inside guess field
+        guessField.focus(); // set the focus to the textbox
+        lastResult.style.backgroundColor = 'white'; // change last result CSS to white
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+      }
 
     </script>
   </body>
